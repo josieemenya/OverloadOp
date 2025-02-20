@@ -24,12 +24,12 @@ int main(){
         std::cout << false; // 0
 
     MyString Rufus("NINE");
-    Rufus * 4;
+    4 * Rufus;
 
     Rufus.display();
 
     MyString Tomas ("Mamma Mia");
-    Tomas *= 5;
+    5 *= Tomas;
     std::cout << Tomas << std::endl;
 
     if (Temp < Rufus)

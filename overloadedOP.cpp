@@ -1,24 +1,24 @@
 #include "MyString.h"
 #include <cctype>
 
-MyString MyString::operator-()
+MyString operator-(MyString &s)
 {
-    std::string str = cname;
+    std::string str = s.cname;
     for(auto &c: str){
         c = std::tolower(c);
     }
 
     std::cout << '\n' << str << '\n';
-    std::strcpy(cname, str.c_str());
-    return *this; 
+    std::strcpy(s.cname, str.c_str());
+    return s; 
 
 }
 
-MyString MyString::operator* (int c) const{
+ MyString operator* (int c, MyString &d) {
     char *temp = new char[500];
     temp[0] = '\0';
     for (int i = 0; i < c; i++){
-        std::strcat(temp, cname);
+        std::strcat(temp, d.cname);
     }
     std::string s = temp;
     std::cout << std::endl << s << std::endl;
@@ -26,42 +26,42 @@ MyString MyString::operator* (int c) const{
     return temp; 
 }
 
-MyString MyString::operator*=(int x) {
+MyString operator*=(int x, MyString& y) {
 
     if (x <= 0) {
         
-        delete[] cname;
-        cname = new char[1];
-        cname[0] = '\0';  
-        return *this;
+        delete[] y.cname;
+        y.cname = new char[1];
+        y.cname[0] = '\0';  
+        return y;
     }
 
-    MyString s = *this * x;
-    delete [] cname;
-    cname = new char [300];
-    cname[0] = '\0';
-    std::strcat(cname, s.cname);
-    display();
+    MyString s = x * y;
+    delete [] y.cname;
+    y.cname = new char [300];
+    y.cname[0] = '\0';
+    std::strcat(y.cname, s.cname);
+    y.display();
 
-    return *this;
+    return y;
 }
 
-MyString &MyString::operator++()
+MyString& operator++(MyString &y)
 {
    
-    std::string str = cname;
+    std::string str = y.get_str();
     for(auto c : str){
         std::toupper(c);
     }
-    std::strcpy(cname, str.c_str());
+    y.set_str(str.c_str());
 
-    this->display();
+    y.display();
 
-    return *this;
+    return y;
 }
 
-MyString &MyString::operator++(int)
+MyString& operator++(MyString &y, int)
 {
     std::cout << "No clue what this is supposed to do";
-    return *this; 
+    return y; 
 }

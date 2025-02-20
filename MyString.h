@@ -26,7 +26,8 @@ int get_length() const;
 const char* get_str() const {return cname;};
 
 public:
-void set_str(const char* c);
+void set_str(const char* c){std::strcpy(cname, c);};
+//int fuck_you (int c) {c = 2; return c;}
 
 MyString operator=(MyString &s) const{return *this = s; }
 friend MyString operator-(MyString &s);
@@ -41,7 +42,7 @@ friend MyString operator*=(int x, MyString &s);
 
 friend std::ostream& operator<<(std::ostream& os, const MyString& s){os << s.cname; return os;}
 
-friend MyString &operator++(MyString);
+friend MyString &operator++(MyString&);
 friend MyString &operator++(MyString &s, int x);
 
 
