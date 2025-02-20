@@ -8,6 +8,9 @@
 
 class MyString{
 
+private:
+char* cname;
+
 public:
 MyString();
 MyString(const char *s);
@@ -20,28 +23,30 @@ void display() const;
 
 int get_length() const; 
 
-const char* get_str() const; 
+const char* get_str() const {return cname;};
+
+public:
+void set_str(const char* c);
 
 MyString operator=(MyString &s) const{return *this = s; }
-MyString operator-();
-bool operator==(const MyString& c) const{return std::strcmp(cname, c.cname) == 0;};
-bool operator!=(const MyString& d) const {return !(*this == d); }
-bool operator<(const MyString &a) const{return cname < a.cname; }
-bool operator>(const MyString &c) const{return !(*this < c); }
-MyString operator+(const MyString &c) const{MyString temp = strcat(cname, c.cname); return temp;}
-MyString operator+=(const MyString &c) const{ MyString s = *this + c; s.display(); return s;}
-MyString operator*(int x) const;
-MyString operator*=(int x);
+friend MyString operator-(MyString &s);
+friend bool operator==(const MyString& c, const MyString& f) {return std::strcmp(c.cname, f.cname) == 0;};
+friend bool operator!=(const MyString& d, const MyString &y) {return !(d == y); }
+friend bool operator<(const MyString &a, const MyString &b) {return a.cname < b.cname; }
+friend bool operator>(const MyString &c, const MyString &d) {return !(c < d); }
+friend MyString operator+(const MyString &c, const MyString &d) {MyString temp = strcat(c.cname, d.cname); return temp;}
+friend MyString operator+=(const MyString &c, const MyString &d) { MyString s = c + d; s.display(); return s;}
+friend MyString operator*(int x, MyString& s);
+friend MyString operator*=(int x, MyString &s);
 
 friend std::ostream& operator<<(std::ostream& os, const MyString& s){os << s.cname; return os;}
 
-MyString &operator++();
-MyString &operator++(int);
+friend MyString &operator++(MyString);
+friend MyString &operator++(MyString &s, int x);
 
 
 
-private:
-char* cname;
+
 
 //int stringLength();
 
